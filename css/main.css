@@ -1,5 +1,6 @@
 :root {
 	--canvas_size: 70vmin;
+	--swatch_size: 40px;
 }
 
 body {
@@ -27,31 +28,30 @@ body {
 	-ms-interpolation-mode: nearest-neighbor;   /* IE                            */
 }
 
-#top, #bottom {
+#top {
 	width: 100%;
 	height: 10vmin;
 	top: 0;
-}
 
-#middle {
-	width: 100%;
-	height: 80vmin;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-#top {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	background: var(--b_med);
 }
 
+#middle {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 #divider {
 	width: 5px;
 	height: 80%;
 	background: var(--b_inv);
+	opacity: 20%;
 	border-radius: 10px;
 }
 
@@ -62,13 +62,13 @@ body {
 }
 
 .swatch {
-	width: 40px;
-	height: 40px;
-	background: var(--b_inv);
-	border-radius: 5px;
+	width: var(--swatch_size);
+	height: var(--swatch_size);
+	background: var(--b_high);
+	border-radius: 50px;
 	transition: box-shadow 0.2s;
 }
 
 .selected {
-	box-shadow: 0px 0px 10px rgba(255, 255, 0, 0.5);
+	box-shadow: 0px 0px 10px var(--b_high);
 }
