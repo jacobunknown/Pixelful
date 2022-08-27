@@ -34,11 +34,11 @@ for (let i = 0; i < colorSwatches.length; i++) {
 	colorSwatches[i].addEventListener("click", () => {
 		setSelectedSwatch(i)
 	})
-	colorSwatches[i].style.background = `rgb(${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)})`
+	colorSwatches[i].style.setProperty("--color", `rgb(${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)})`)
 }
 
 picker.on("change", (c) => {
-	colorSwatches[selectedSwatch].style.background = c.toRGBA()
+	colorSwatches[selectedSwatch].style.setProperty("--color", c.toRGBA())
 	color = c.toRGBA()
 })
 
@@ -93,8 +93,8 @@ function setSelectedSwatch(index) {
 		if (i == index) {
 			colorSwatches[index].className = "swatch selected"
 			selectedSwatch = index
-			picker.setColor(colorSwatches[index].style.background)
-			color = rgbParse(colorSwatches[index].style.background)
+			picker.setColor(colorSwatches[index].style.getPropertyValue("--color"))
+			color = rgbParse(colorSwatches[index].style.getPropertyValue("--color"))
 		} else {
 			colorSwatches[i].className = "swatch"
 		}
@@ -111,7 +111,11 @@ function setSelectedTool(t) {
 
 canvas.addEventListener("mousedown", (e) => {
 	mouseDown = true
-	draw(e)
+	if (selectedTool == "p") {
+		draw(e)
+	} else if (selectedTool == "f") {
+		console.log("fill")
+	}
 })
 
 canvas.addEventListener("mouseup", () => {
@@ -132,7 +136,7 @@ function draw(e) {
 }
 
 canvas.addEventListener("mousemove", (e) => {
-	if (mouseDown) {
+	if (mouseDown && selectedTool == "p") {
 		draw(e)
 	}
 })
@@ -152,4 +156,8 @@ function isNumeric(value) {
 
 function rgbParse(c) {
 	return c.replace("rgb(", "").replace(")", "").split(", ")
+}
+
+function getPixelIndex(x, y) {
+	return ((y * imageSize) + x) * 4
 }

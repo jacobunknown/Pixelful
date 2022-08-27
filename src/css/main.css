@@ -6,6 +6,7 @@
 }
 
 .button {
+	--color: var(--b_inv);
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -90,13 +91,13 @@ img {
 .swatch {
 	width: var(--swatch_size);
 	height: var(--swatch_size);
-	background: var(--b_high);
+	background: var(--color);
 	border-radius: 50px;
 	transition: box-shadow 0.2s;
 }
 
 .selected {
-	box-shadow: 0px 0px 10px var(--b_inv);
+	box-shadow: 0px 0px 3vmin var(--color);
 }
 
 .button {
