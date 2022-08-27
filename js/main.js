@@ -1,7 +1,10 @@
 const theme = new Theme()
 
-const canvas = document.getElementById("canvas")
+const canvas = document.getElementById("imageCanvas")
 const ctx = canvas.getContext("2d")
+
+const gridCanvas = document.getElementById("gridCanvas")
+const gridCtx = gridCanvas.getContext("2d")
 
 let imageSize = 8;
 let image = ctx.createImageData(imageSize, imageSize)
@@ -36,10 +39,8 @@ for (let i = 0; i < colorSwatches.length; i++) {
 }
 
 picker.on("change", (c) => {
-	const color = c.toHEXA()
-	if (colorSwatches[selectedSwatch] != color) {
-		colorSwatches[selectedSwatch].style.background = color
-	}
+	colorSwatches[selectedSwatch].style.background = picker.getColor()
+	console.log(colorSwatches[selectedSwatch].style.background)
 })
 
 theme.install()
@@ -82,15 +83,16 @@ function setSelectedSwatch(index) {
 			colorSwatches[index].className = "swatch selected"
 			selectedSwatch = index
 			picker.setColor(colorSwatches[index].style.background)
-			color = hexToRgb(colorSwatches[index].style.background)
+			color = rgbParse(colorSwatches[index].style.background)
 		} else {
 			colorSwatches[i].className = "swatch"
 		}
 	}
 }
 
-canvas.addEventListener("mousedown", () => {
+canvas.addEventListener("mousedown", (e) => {
 	mouseDown = true
+	draw(e)
 })
 
 canvas.addEventListener("mouseup", () => {
@@ -103,9 +105,9 @@ function draw(e) {
 	const y = Math.floor((e.clientY - rect.top) / (rect.height / imageSize))
 	const pos = ((y * imageSize) + x) * 4
 
-	image.data[pos + 0] = 255
-	image.data[pos + 1] = 255
-	image.data[pos + 2] = 255
+	image.data[pos + 0] = color[0]
+	image.data[pos + 1] = color[1]
+	image.data[pos + 2] = color[2]
 
 	drawImage()
 }
@@ -114,10 +116,6 @@ canvas.addEventListener("mousemove", (e) => {
 	if (mouseDown) {
 		draw(e)
 	}
-})
-
-canvas.addEventListener("click", (e) => {
-	draw(e)
 })
 
 document.addEventListener("keydown", (e) => {
@@ -131,17 +129,6 @@ function isNumeric(value) {
     return /^\d+$/.test(value);
 }
 
-function hexToRgb(hex) {
-	// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-	var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-	hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-	  return r + r + g + g + b + b;
-	});
-  
-	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-	return result ? [
-	  parseInt(result[1], 16),
-	  parseInt(result[2], 16),
-	  parseInt(result[3], 16)
-	] : null;
-  }
+function rgbParse(c) {
+	return c.replace("rgb(", "").replace(")", "").split(", ")
+}
