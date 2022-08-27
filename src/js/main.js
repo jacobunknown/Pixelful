@@ -27,7 +27,7 @@ const picker = new Pickr({
 })
 
 const colorSwatches = document.getElementsByClassName("swatch")
-let selectedSwatch = 0;
+let selectedSwatch;
 let mouseDown = false;
 
 for (let i = 0; i < colorSwatches.length; i++) {
@@ -41,15 +41,6 @@ picker.on("change", (c) => {
 	colorSwatches[selectedSwatch].style.setProperty("--color", c.toRGBA())
 	color = c.toRGBA()
 })
-
-theme.install()
-theme.start()
-setImageSize(16)
-setSelectedSwatch(0)
-setSelectedTool("p")
-//randomizeImage()
-setImage()
-drawImage()
 
 function setImageSize(s) {
 	imageSize = s
@@ -67,13 +58,13 @@ function randomizeImage() {
 	}
 }
 
-function setImage() {
+function clearImage() {
 	for (let i = 0; i < image.data.length; i += 4) {
 		const b = 255;
 		image.data[i + 0] = b
 		image.data[i + 1] = b
 		image.data[i + 2] = b
-		image.data[i + 3] = 255
+		image.data[i + 3] = 0
 	}
 }
 
@@ -109,6 +100,15 @@ function setSelectedTool(t) {
 	}
 }
 
+theme.install()
+theme.start()
+setImageSize(16)
+setSelectedSwatch(0)
+setSelectedTool("p")
+//randomizeImage()
+//clearImage()
+drawImage()
+
 canvas.addEventListener("mousedown", (e) => {
 	mouseDown = true
 	if (selectedTool == "p") {
@@ -126,7 +126,7 @@ function draw(e) {
 	const rect = canvas.getBoundingClientRect()
 	const x = Math.floor((e.clientX - rect.left) / (rect.width / imageSize))
 	const y = Math.floor((e.clientY - rect.top) / (rect.height / imageSize))
-	const pos = ((y * imageSize) + x) * 4
+	const pos = getPixelIndex(x, y)
 
 	image.data[pos + 0] = color[0]
 	image.data[pos + 1] = color[1]

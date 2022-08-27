@@ -41,7 +41,7 @@ body {
 canvas {
 	width: var(--canvas_size);
 	height: var(--canvas_size);
-	background: var(--b_med);
+	background: var(--b_low);
 }
 
 #top {
