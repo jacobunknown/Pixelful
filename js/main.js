@@ -6,7 +6,7 @@ const ctx = canvas.getContext("2d")
 const gridCanvas = document.getElementById("gridCanvas")
 const gridCtx = gridCanvas.getContext("2d")
 
-let imageSize = 8;
+let imageSize = 16;
 let image = ctx.createImageData(imageSize, imageSize)
 
 let color = [255, 255, 255]
@@ -39,13 +39,13 @@ for (let i = 0; i < colorSwatches.length; i++) {
 }
 
 picker.on("change", (c) => {
-	colorSwatches[selectedSwatch].style.background = picker.getColor()
-	console.log(colorSwatches[selectedSwatch].style.background)
+	colorSwatches[selectedSwatch].style.background = c.toRGBA()
+	color = c.toRGBA()
 })
 
 theme.install()
 theme.start()
-setImageSize(8)
+setImageSize(16)
 setSelectedSwatch(0)
 randomizeImage()
 drawImage()
