@@ -2,14 +2,13 @@ const theme = new Theme()
 
 const canvas = document.getElementById("imageCanvas")
 const ctx = canvas.getContext("2d")
+const tools = document.getElementsByName("tool")
 
-const gridCanvas = document.getElementById("gridCanvas")
-const gridCtx = gridCanvas.getContext("2d")
-
-let imageSize = 16;
-let image = ctx.createImageData(imageSize, imageSize)
+let imageSize;
+let image;
 
 let color = [255, 255, 255]
+let selectedTool;
 
 const picker = new Pickr({
 	el: "#picker",
@@ -47,7 +46,9 @@ theme.install()
 theme.start()
 setImageSize(16)
 setSelectedSwatch(0)
-randomizeImage()
+setSelectedTool("p")
+//randomizeImage()
+setImage()
 drawImage()
 
 function setImageSize(s) {
@@ -62,6 +63,16 @@ function randomizeImage() {
 		image.data[i + 0] = Math.round(Math.random() * 255)
 		image.data[i + 1] = Math.round(Math.random() * 255)
 		image.data[i + 2] = Math.round(Math.random() * 255)
+		image.data[i + 3] = 255
+	}
+}
+
+function setImage() {
+	for (let i = 0; i < image.data.length; i += 4) {
+		const b = 255;
+		image.data[i + 0] = b
+		image.data[i + 1] = b
+		image.data[i + 2] = b
 		image.data[i + 3] = 255
 	}
 }
@@ -87,6 +98,14 @@ function setSelectedSwatch(index) {
 		} else {
 			colorSwatches[i].className = "swatch"
 		}
+	}
+}
+
+function setSelectedTool(t) {
+	if (t == "p" | t == "f") {
+		selectedTool = t
+		tools[{p: 0, f: 1}[t]].className = "button selected";
+		tools[{p: 1, f: 0}[t]].className = "button";
 	}
 }
 
@@ -119,9 +138,11 @@ canvas.addEventListener("mousemove", (e) => {
 })
 
 document.addEventListener("keydown", (e) => {
-	const key = Number(e.key)
-	if (isNumeric(key) && key < 9) {
+	const key = e.key
+	if (isNumeric(key) && Number(key) < 9) {
 		setSelectedSwatch(Math.round(key) - 1)
+	} else if (key == "p" | key == "f") {
+		setSelectedTool(key)
 	}
 })
 
