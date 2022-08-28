@@ -131,7 +131,8 @@ function draw(e) {
 	image.data[pos + 0] = color[0]
 	image.data[pos + 1] = color[1]
 	image.data[pos + 2] = color[2]
-
+	image.data[pos + 3] = 255
+	
 	drawImage()
 }
 
