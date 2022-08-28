@@ -1,17 +1,17 @@
-const theme = new Theme()
+const theme = new Theme() // 100r theme init
 
-const canvas = document.getElementById("imageCanvas")
-const ctx = canvas.getContext("2d")
-const tools = document.getElementsByName("tool")
-const fileInput = document.getElementById("fileInput")
+const canvas = document.getElementById("imageCanvas") // the actual canvas
+const ctx = canvas.getContext("2d") // canvas context
+const tools = document.getElementsByName("tool") // tools html elements
+const fileInput = document.getElementById("fileInput") // invisible file input (for opening images)
 
-let imageSize;
-let image;
+let imageSize; // size of the image [width, height]
+let image; // imageData
 
-let color = [255, 255, 255]
-let selectedTool;
+let color = [255, 255, 255] // currently used color
+let selectedTool; // selected tool (paint or fill)
 
-const picker = new Pickr({
+const picker = new Pickr({ // color picker init
 	el: "#picker",
 	container: "#top",
 	theme: "nano",
@@ -27,51 +27,50 @@ const picker = new Pickr({
 	}
 })
 
-const colorSwatches = document.getElementsByClassName("swatch")
-let selectedSwatch;
-let mouseDown = false;
+const colorSwatches = document.getElementsByClassName("swatch") // color swatches html elements
+let selectedSwatch; // currently selected color swatch index
+let mouseDown = false; // mouseDown
 
 for (let i = 0; i < colorSwatches.length; i++) {
 	colorSwatches[i].addEventListener("click", () => {
-		setSelectedSwatch(i)
+		setSelectedSwatch(i) // select color swatch on click
 	})
-	colorSwatches[i].style.setProperty("--color", `rgb(${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)})`)
+	colorSwatches[i].style.setProperty("--color", `rgb(${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)})`) // random color for every swatch
 }
 
 picker.on("change", (c) => {
-	colorSwatches[selectedSwatch].style.setProperty("--color", c.toRGBA())
-	color = c.toRGBA()
+	colorSwatches[selectedSwatch].style.setProperty("--color", c.toRGBA()) // set currently selected color swatch to color of picker
+	color = c.toRGBA() // set currently used color to color of picker
 })
 
 function setImageSize(w, h) {
-	imageSize = [w, h]
-	console.log(imageSize)
-	canvas.width = w
+	imageSize = [w, h] // imageSize = [width, height]
+	canvas.width = w // set canvas size
 	canvas.height = h
-	image = ctx.createImageData(w, h)
+	image = ctx.createImageData(w, h) // new image
 }
 
 function randomizeImage() {
 	for (let i = 0; i < image.data.length; i += 4) {
-		image.data[i + 0] = Math.round(Math.random() * 255)
-		image.data[i + 1] = Math.round(Math.random() * 255)
-		image.data[i + 2] = Math.round(Math.random() * 255)
-		image.data[i + 3] = 255
+		image.data[i + 0] = Math.round(Math.random() * 255) // random red
+		image.data[i + 1] = Math.round(Math.random() * 255) // random green
+		image.data[i + 2] = Math.round(Math.random() * 255) // random blue
+		image.data[i + 3] = 255 // always 255 opacity
 	}
 }
 
 function clearImage() {
 	for (let i = 0; i < image.data.length; i += 4) {
-		const b = 255;
-		image.data[i + 0] = b
-		image.data[i + 1] = b
-		image.data[i + 2] = b
-		image.data[i + 3] = 0
+		const brightness = 255; // white
+		image.data[i + 0] = brightness
+		image.data[i + 1] = brightness
+		image.data[i + 2] = brightness
+		image.data[i + 3] = 0 // 0 opacity
 	}
 }
 
 function drawImage() {
-	ctx.putImageData(image, 0, 0);
+	ctx.putImageData(image, 0, 0); // draw image on canvas
 }
 
 function downloadImage() {
@@ -82,18 +81,18 @@ function downloadImage() {
 }
 
 function openImage() {
-	fileInput.click()
+	fileInput.click() // click invisible file input
 }
 
 function setSelectedSwatch(index) {
 	for (let i = 0; i < colorSwatches.length; i++) {
-		if (i == index) {
-			colorSwatches[index].className = "swatch selected"
-			selectedSwatch = index
-			picker.setColor(colorSwatches[index].style.getPropertyValue("--color"))
-			color = rgbParse(colorSwatches[index].style.getPropertyValue("--color"))
+		if (i == index) { // if color swatch is the one to be selected
+			colorSwatches[index].className = "swatch selected" // add selected class (selection glow)
+			selectedSwatch = index // set selected swatch index variable
+			picker.setColor(colorSwatches[index].style.getPropertyValue("--color")) // set picker to color of selected color swatch
+			color = rgbParse(colorSwatches[index].style.getPropertyValue("--color")) // set currently used color to color of selected color swatch
 		} else {
-			colorSwatches[i].className = "swatch"
+			colorSwatches[i].className = "swatch" // if not selected, make sure selection class is removed
 		}
 	}
 }
@@ -101,8 +100,8 @@ function setSelectedSwatch(index) {
 function setSelectedTool(t) {
 	if (t == "p" | t == "f") {
 		selectedTool = t
-		tools[{p: 0, f: 1}[t]].className = "button selected";
-		tools[{p: 1, f: 0}[t]].className = "button";
+		tools[{p: 0, f: 1}[t]].className = "button selected"; // selected tool has selection class
+		tools[{p: 1, f: 0}[t]].className = "button"; // other tool doesn't have selection class
 	}
 }
 
@@ -110,12 +109,10 @@ theme.install()
 theme.start()
 setImageSize(16, 16)
 setSelectedSwatch(0)
-setSelectedTool("p")
-//randomizeImage()
-//clearImage()
+setSelectedTool("p") // paint tool by default
 drawImage()
 
-function draw(e) {
+function draw(e) { // paint
 	const rect = canvas.getBoundingClientRect()
 	const x = Math.floor((e.clientX - rect.left) / (rect.width / imageSize[0]))
 	const y = Math.floor((e.clientY - rect.top) / (rect.height / imageSize[1]))
@@ -131,9 +128,9 @@ function draw(e) {
 
 canvas.addEventListener("mousedown", (e) => {
 	mouseDown = true
-	if (selectedTool == "p") {
+	if (selectedTool == "p") { // paint
 		draw(e)
-	} else if (selectedTool == "f") {
+	} else if (selectedTool == "f") { // fill
 		console.log("fill")
 	}
 })
@@ -143,22 +140,35 @@ canvas.addEventListener("mouseup", () => {
 })
 
 canvas.addEventListener("mousemove", (e) => {
-	if (mouseDown && selectedTool == "p") {
+	if (mouseDown && selectedTool == "p") { // if mouse down and paint tool is selected, paint
 		draw(e)
 	}
 })
 
 document.addEventListener("keydown", (e) => {
 	const key = e.key
-	if (isNumeric(key) && Number(key) < 9) {
+	if (isNumeric(key) && Number(key) < 9) { // 1-9 swatches
 		setSelectedSwatch(Math.round(key) - 1)
-	} else if (key == "p" | key == "f") {
-		setSelectedTool(key)
+	} else {
+		switch (key) {
+			case "p": // paint tool
+			case "f": // fill tool
+				setSelectedTool(key)
+				break
+			case "r": // randomize imahe
+				randomizeImage()
+				drawImage()
+				break
+			case "c": // clear image
+				clearImage()
+				drawImage()
+			default:
+				break
+		}
 	}
 })
 
 fileInput.addEventListener("change", (e) => {
-	console.log(e)
 	const reader = new FileReader()
 	reader.onload = () => {
 		const i = new Image()
@@ -168,14 +178,9 @@ fileInput.addEventListener("change", (e) => {
 			setImageSize(i.width, i.height)
 			ctx.drawImage(i, 0, 0, i.width, i.height)
 			image = ctx.getImageData(0, 0, i.width, i.height)
-			//drawImage()
 		}
 	}
 	reader.readAsDataURL(fileInput.files[0])
-})
-
-document.addEventListener("scroll", (e) => {
-	console.log(e)
 })
 
 function isNumeric(value) {
