@@ -1,4 +1,11 @@
 const theme = new Theme() // 100r theme init
+theme.install()
+theme.start()
+
+let created = false;
+
+const start = document.getElementById("start")
+const sizeInput = document.getElementById("size")
 
 const canvas = document.getElementById("imageCanvas") // the actual canvas
 const ctx = canvas.getContext("2d") // canvas context
@@ -84,6 +91,22 @@ function openImage() {
 	fileInput.click() // click invisible file input
 }
 
+function create() {
+	const xPos = sizeInput.value.indexOf("x")
+	if (xPos == -1) {
+		setImageSize(16, 16)
+	} else {
+		const size = sizeInput.value.split("x")
+		setImageSize(Number(size[0]), Number(size[1]))
+	}
+
+	start.remove()
+	created = true
+	setSelectedSwatch(0)
+	setSelectedTool("p") // paint tool by default
+	drawImage()
+}
+
 function setSelectedSwatch(index) {
 	for (let i = 0; i < colorSwatches.length; i++) {
 		if (i == index) { // if color swatch is the one to be selected
@@ -104,13 +127,6 @@ function setSelectedTool(t) {
 		tools[{p: 1, f: 0}[t]].className = "button"; // other tool doesn't have selection class
 	}
 }
-
-theme.install()
-theme.start()
-setImageSize(16, 16)
-setSelectedSwatch(0)
-setSelectedTool("p") // paint tool by default
-drawImage()
 
 function draw(e) { // paint
 	const rect = canvas.getBoundingClientRect()
@@ -147,6 +163,10 @@ canvas.addEventListener("mousemove", (e) => {
 
 document.addEventListener("keydown", (e) => {
 	const key = e.key
+	if (created == false && key == "Enter") {
+		create()
+		return
+	}
 	if (isNumeric(key) && Number(key) < 9) { // 1-9 swatches
 		setSelectedSwatch(Math.round(key) - 1)
 	} else {
@@ -187,10 +207,10 @@ function isNumeric(value) {
     return /^\d+$/.test(value);
 }
 
-function rgbParse(c) {
-	return c.replace("rgb(", "").replace(")", "").split(", ")
+function rgbParse(c) { // parse rgba to number array
+	return c.replace("rgba(", "").replace(")", "").split(", ").map(Number)
 }
 
-function getPixelIndex(x, y) {
+function getPixelIndex(x, y) { // get pixel index in imagedata
 	return ((y * imageSize[0]) + x) * 4
 }

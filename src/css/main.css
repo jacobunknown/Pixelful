@@ -3,19 +3,39 @@
 	src: url("../fonts/Inter-Bold.woff");
 }
 
-* {
-	font-family: Inter;
-}
-
 :root {
 	--canvas_size: 85vmin;
 	--swatch_size: 40px;
+	--button_color: var(--f_low);
+	--text_color: var(--b_med);
+}
+
+* {
+	font-family: Inter;
+	color: var(--text_color);
+}
+
+svg {
+	fill: var(--text_color);
 }
 
 .button {
-	--color: var(--b_inv);
+	--color: var(--button_color);
 	font-weight: bold;
 	cursor: pointer;
+}
+
+.button, .input {
+	border: none;
+	outline: none;
+	background: var(--button_color);
+	padding: 0.3em;
+	border-radius: 3px;
+	transition: box-shadow 0.2s;
+}
+
+.input {
+	width: 5em;
 }
 
 body {
@@ -24,10 +44,29 @@ body {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
+}
+
+main {
+	width: 100%;
+	height: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: column;
+}
+
+#start {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1em;
+	background: var(--background);
+}
+
+#top, #left {
+	background: var(--b_med);
 }
 
 #canvasContain {
@@ -49,6 +88,8 @@ body {
 	width: var(--canvas_size);
 	height: auto;
 	background: var(--b_low);
+	border-radius: 5px;
+	overflow: hidden;
 }
 
 #imageCanvas {
@@ -66,7 +107,6 @@ body {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	background: var(--b_low);
 }
 
 #fileButtons {
@@ -96,11 +136,6 @@ body {
 	justify-content: center;
 	align-items: center;
 	gap: 1em;
-	background: var(--b_low);
-}
-
-img {
-	width: 5vmin;
 }
 
 #colorSwatches {
@@ -119,16 +154,4 @@ img {
 
 .selected {
 	box-shadow: 0px 0px 3vmin var(--color);
-}
-
-.button {
-	background: var(--b_inv);
-	color: var(--b_low);
-	padding: 0.3em;
-	border-radius: 3px;
-	transition: box-shadow 0.2s;
-}
-
-svg {
-	fill: var(--b_low);
 }
