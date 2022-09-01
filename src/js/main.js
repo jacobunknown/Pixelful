@@ -227,6 +227,13 @@ document.addEventListener("keydown", (e) => {
 			case "c": // clear image
 				clearImage()
 				drawImage()
+				break
+			case "d":
+				downloadImage()
+				break
+			case "o":
+				openImage()
+				break
 			default:
 				break
 		}
