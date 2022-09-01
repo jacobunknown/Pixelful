@@ -1,3 +1,3 @@
 # Pixel Art Editor 🎨
 
-A simple pixel art editor
+A simple, one layer pixel art editor
