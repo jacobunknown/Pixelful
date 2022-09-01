@@ -102,7 +102,7 @@ function create() {
 
 	start.remove()
 	created = true
-	setSelectedSwatch(0)
+	setSelectedSwatch(0) // first color swatch by default
 	setSelectedTool("p") // paint tool by default
 	drawImage()
 }
@@ -128,26 +128,43 @@ function setSelectedTool(t) {
 	}
 }
 
-function draw(e) { // paint
-	const rect = canvas.getBoundingClientRect()
-	const x = Math.floor((e.clientX - rect.left) / (rect.width / imageSize[0]))
-	const y = Math.floor((e.clientY - rect.top) / (rect.height / imageSize[1]))
-	const pos = getPixelIndex(x, y)
+function paint(e) { // paint
+	const pos = getCanvasPos(e)
 
-	image.data[pos + 0] = color[0]
-	image.data[pos + 1] = color[1]
-	image.data[pos + 2] = color[2]
+	setImageColor(pos, color)
 	image.data[pos + 3] = 255
 	
 	drawImage()
 }
 
+function fill(e) { // fill
+	const pos = getCanvasPosVector(e)
+	const oldColor = getImageColor(getCanvasPos(e))
+	const newColor = color
+	dfs(pos[0], pos[1], oldColor, newColor)
+	drawImage()
+}
+
+
+function dfs(i, j, oldColor, newColor) { // depth first search
+	if (i < 0 || i >= imageSize[0] || j < 0 || j >= imageSize[1] || colorEqual(getImageColor(getPixelIndex(i, j)), oldColor) == false) {
+		return
+	}
+	const pos = getPixelIndex(i, j)
+	setImageColor(pos, newColor)
+	image.data[pos + 3] = 255
+	dfs(i + 1, j, oldColor, newColor)
+	dfs(i - 1, j, oldColor, newColor)
+	dfs(i, j + 1, oldColor, newColor)
+	dfs(i, j - 1, oldColor, newColor)
+}
+
 canvas.addEventListener("mousedown", (e) => {
 	mouseDown = true
 	if (selectedTool == "p") { // paint
-		draw(e)
+		paint(e)
 	} else if (selectedTool == "f") { // fill
-		console.log("fill")
+		fill(e)
 	}
 })
 
@@ -157,7 +174,7 @@ canvas.addEventListener("mouseup", () => {
 
 canvas.addEventListener("mousemove", (e) => {
 	if (mouseDown && selectedTool == "p") { // if mouse down and paint tool is selected, paint
-		draw(e)
+		paint(e)
 	}
 })
 
@@ -213,4 +230,44 @@ function rgbParse(c) { // parse rgba to number array
 
 function getPixelIndex(x, y) { // get pixel index in imagedata
 	return ((y * imageSize[0]) + x) * 4
+}
+
+function getCanvasPos(e) {
+	const rect = canvas.getBoundingClientRect()
+	const x = Math.floor((e.clientX - rect.left) / (rect.width / imageSize[0]))
+	const y = Math.floor((e.clientY - rect.top) / (rect.height / imageSize[1]))
+	return getPixelIndex(x, y)
+}
+
+function getCanvasPosVector(e) {
+	const rect = canvas.getBoundingClientRect()
+	const x = Math.floor((e.clientX - rect.left) / (rect.width / imageSize[0]))
+	const y = Math.floor((e.clientY - rect.top) / (rect.height / imageSize[1]))
+	return [x, y]
+}
+
+function setImageColor(pos, c) {
+	image.data[pos + 0] = c[0]
+	image.data[pos + 1] = c[1]
+	image.data[pos + 2] = c[2]
+	image.data[pos + 3] = c[3]
+	//image.data[pos + 3] = 255
+}
+
+function getImageColor(pos) {
+	return [
+		image.data[pos + 0],
+		image.data[pos + 1],
+		image.data[pos + 2],
+		image.data[pos + 3]
+	]
+}
+
+function colorEqual(c1, c2) {
+	for (let i = 0; i < 4; i++) {
+		if (c1[i] != c2[i]) {
+			return false
+		}
+	}
+	return true
 }
