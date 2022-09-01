@@ -30,18 +30,22 @@
 		</div>
 		<div id="picker"></div>
 		<div id="fileButtons">
-			<div class="button" onclick="downloadImage()">Download</div>
-			<div class="button" onclick="openImage()">Open</div>
+			<div class="button" onclick="downloadImage()" title="Download Image (d)">Download</div>
+			<div class="button" onclick="openImage()" title="Open Image (o)">Open</div>
 			<input type="file" id="fileInput" hidden>
 		</div>
 	</div>
 	<div id="middle">
 		<div id="left">
-			<div id="paint" name="tool" class="button" onclick="setSelectedTool('p')" title="Paint Tool">
+			<div id="paint" name="tool" class="button" onclick="setSelectedTool('p')" title="Paint Tool (p)">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.289 6.216l4.939-3.841a1 1 0 0 1 1.32.082l2.995 2.994a1 1 0 0 1 .082 1.321l-3.84 4.938a7.505 7.505 0 0 1-7.283 9.292C8 21.002 3.5 19.5 1 18c3.98-3 3.047-4.81 3.5-6.5 1.058-3.95 4.842-6.257 8.789-5.284zm3.413 1.879c.065.063.13.128.193.194l1.135 1.134 2.475-3.182-1.746-1.746-3.182 2.475 1.125 1.125z"/></svg>
 			</div>
-			<div id="fill" name="tool" class="button" onclick="setSelectedTool('f')" title="Fill Tool">
+			<div id="fill" name="tool" class="button" onclick="setSelectedTool('f')" title="Fill Tool (f)">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.228 18.732l1.768-1.768 1.767 1.768a2.5 2.5 0 1 1-3.535 0zM8.878 1.08l11.314 11.313a1 1 0 0 1 0 1.415l-8.485 8.485a1 1 0 0 1-1.414 0l-8.485-8.485a1 1 0 0 1 0-1.415l7.778-7.778-2.122-2.121L8.88 1.08zM11 6.03L3.929 13.1H18.07L11 6.03z"/></svg>
+			</div>
+			<div id="eraser" name="tool" class="button" onclick="setSelectedTool('e')" title="Eraser Tool (e)">
+				
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M14 19h7v2h-9l-3.998.002-6.487-6.487a1 1 0 0 1 0-1.414L12.12 2.494a1 1 0 0 1 1.415 0l7.778 7.778a1 1 0 0 1 0 1.414L14 19zm1.657-4.485l3.535-3.536-6.364-6.364-3.535 3.536 6.364 6.364z"/></svg>
 			</div>
 		</div>
 		<div id="canvasContain">

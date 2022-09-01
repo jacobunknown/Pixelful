@@ -43,6 +43,7 @@ for (let i = 0; i < colorSwatches.length; i++) {
 		setSelectedSwatch(i) // select color swatch on click
 	})
 	colorSwatches[i].style.setProperty("--color", `rgb(${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)})`) // random color for every swatch
+	colorSwatches[i].title = `Color Swatch ${i + 1} (${i + 1})`
 }
 
 picker.on("change", (c) => {
@@ -121,10 +122,15 @@ function setSelectedSwatch(index) {
 }
 
 function setSelectedTool(t) {
-	if (t == "p" | t == "f") {
+	if (t == "p" | t == "f" | t == "e") {
 		selectedTool = t
-		tools[{p: 0, f: 1}[t]].className = "button selected"; // selected tool has selection class
-		tools[{p: 1, f: 0}[t]].className = "button"; // other tool doesn't have selection class
+		for (let i = 0; i < tools.length; i++) {
+			if (tools[i].id[0] == t) {
+				tools[i].className = "button selected" // selected tool has selection class
+			} else {
+				tools[i].className = "button" // other tools don't have selection class
+			}
+		}
 	}
 }
 
@@ -141,7 +147,18 @@ function fill(e) { // fill
 	const pos = getCanvasPosVector(e)
 	const oldColor = getImageColor(getCanvasPos(e))
 	const newColor = color
+
 	dfs(pos[0], pos[1], oldColor, newColor)
+
+	drawImage()
+}
+
+function erase(e) {
+	const pos = getCanvasPos(e)
+
+	setImageColor(pos, [0, 0, 0, 0])
+	image.data[pos + 3] = 255
+	
 	drawImage()
 }
 
@@ -161,10 +178,18 @@ function dfs(i, j, oldColor, newColor) { // depth first search
 
 canvas.addEventListener("mousedown", (e) => {
 	mouseDown = true
-	if (selectedTool == "p") { // paint
-		paint(e)
-	} else if (selectedTool == "f") { // fill
-		fill(e)
+	switch (selectedTool) {
+		case "p":
+			paint(e)
+			break
+		case "f":
+			fill(e)
+			break
+		case "e":
+			erase(e)
+			break
+		default:
+			break
 	}
 })
 
@@ -175,6 +200,8 @@ canvas.addEventListener("mouseup", () => {
 canvas.addEventListener("mousemove", (e) => {
 	if (mouseDown && selectedTool == "p") { // if mouse down and paint tool is selected, paint
 		paint(e)
+	} else if (mouseDown && selectedTool == "e") { // if mouse down and eraser tool is selected, erase
+		erase(e)
 	}
 })
 
@@ -190,6 +217,7 @@ document.addEventListener("keydown", (e) => {
 		switch (key) {
 			case "p": // paint tool
 			case "f": // fill tool
+			case "e": // eraser tool
 				setSelectedTool(key)
 				break
 			case "r": // randomize imahe

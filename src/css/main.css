@@ -5,7 +5,7 @@
 
 :root {
 	--canvas_size: 85vmin;
-	--swatch_size: 40px;
+	--swatch_size: 35px;
 	--button_color: var(--f_low);
 	--text_color: var(--b_med);
 }
@@ -13,6 +13,7 @@
 * {
 	font-family: Inter;
 	color: var(--text_color);
+	font-size: 1em;
 }
 
 svg {
