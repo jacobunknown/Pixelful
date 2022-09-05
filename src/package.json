@@ -2,10 +2,10 @@
   "name": "pixelarteditor",
   "version": "1.0.0",
   "description": "A simple, one layer pixel art editor",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron src/main.js"
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
