@@ -1,4 +1,4 @@
-# Pixel Art Editor 🎨
+# Pixelful 🎨
 
 A minimal, one layer pixel art editor
 
