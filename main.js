@@ -5,7 +5,8 @@ const createWindow = () => {
 		width: 800,
 		height: 600,
 		autoHideMenuBar: true,
-		title: "Pixelful"
+		title: "Pixelful",
+		icon: "icon.ico"
 	})
 
 	const ses = win.webContents.session

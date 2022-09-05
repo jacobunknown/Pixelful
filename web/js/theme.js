@@ -57,7 +57,6 @@ function Theme (client) {
     const theme = this.parse(data)
     if (!isValid(theme)) { console.warn('Theme', 'Invalid format'); return }
     console.log('Theme', 'Loaded theme!')
-    console.log(theme)
     this.el.innerHTML = `:root { 
       --background: ${theme.background}; 
       --f_high: ${theme.f_high}; 
