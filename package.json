@@ -1,7 +1,7 @@
 {
-  "name": "pixelarteditor",
+  "name": "pixelful",
   "version": "1.0.0",
-  "description": "A simple, one layer pixel art editor",
+  "description": "A minimal, one layer pixel art editor",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jacobunknown/PixelArtEditor.git"
+    "url": "git+https://github.com/jacobunknown/pixelful.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jacobunknown/PixelArtEditor/issues"
+    "url": "https://github.com/jacobunknown/pixelful/issues"
   },
-  "homepage": "https://github.com/jacobunknown/PixelArtEditor#readme",
+  "homepage": "https://github.com/jacobunknown/pixelful#readme",
   "devDependencies": {
     "electron": "^20.1.1"
   }

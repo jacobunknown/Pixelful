@@ -7,9 +7,13 @@ const createWindow = () => {
 		autoHideMenuBar: true,
 		title: "Pixelful"
 	})
+
+	const ses = win.webContents.session
+	ses.clearStorageData()
   
 	win.loadFile("view/index.html")
 }
+
 
 app.whenReady().then(() => {
 	createWindow()
