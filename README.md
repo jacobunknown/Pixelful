@@ -13,4 +13,4 @@ A minimal, one layer pixel art editor
 - `f`: Select Fill tool
 - `e`: Select Eraser tool
 
-This app uses the [Hundred Rabbits Theme Ecosystem](https://github.com/hundredrabbits/Themes). To change the theme, drag and drop a theme svg onto the window.
+This app uses the [Hundred Rabbits Theme System](https://github.com/hundredrabbits/Themes). To change the theme, drag and drop a theme svg onto the window.
