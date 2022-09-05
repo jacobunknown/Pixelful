@@ -11,7 +11,7 @@ const createWindow = () => {
 	const ses = win.webContents.session
 	ses.clearStorageData()
   
-	win.loadFile("view/index.html")
+	win.loadFile("web/index.html")
 }
 
 
