@@ -1,17 +1,16 @@
-const { app, BrowserWindow } = require("electron")
+const { app, BrowserWindow, screen } = require("electron")
 
 const createWindow = () => {
+	const {width, height} = screen.getPrimaryDisplay().workAreaSize
 	const win = new BrowserWindow({
-		width: 800,
-		height: 600,
+		width,
+		height,
 		autoHideMenuBar: true,
 		title: "Pixelful",
 		icon: "icon.ico"
 	})
-
-	const ses = win.webContents.session
-	ses.clearStorageData()
   
+	win.maximize()
 	win.loadFile("web/index.html")
 }
 
