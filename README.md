@@ -2,7 +2,7 @@
 
 A minimal, one layer pixel art editor
 
-![Screenshot of Pixelful](Assets/iconScreenshot.png)
+![Screenshot of Pixelful](Assets/screenshot.png)
 
 ## Shortcuts
 
