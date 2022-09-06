@@ -7,7 +7,7 @@ const createWindow = () => {
 		height,
 		autoHideMenuBar: true,
 		title: "Pixelful",
-		icon: "icon.ico"
+		icon: "Assets/icons/win/icon.ico"
 	})
   
 	win.maximize()

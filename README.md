@@ -2,6 +2,8 @@
 
 A minimal, one layer pixel art editor
 
+![Screenshot of Pixelful](Assets/iconScreenshot.png)
+
 ## Shortcuts
 
 - `c`: Clear image
