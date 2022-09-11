@@ -1,5 +1,9 @@
 const { app, BrowserWindow, screen } = require("electron")
 
+if(require("electron-squirrel-startup")) {
+	app.quit()
+}
+
 const createWindow = () => {
 	const {width, height} = screen.getPrimaryDisplay().workAreaSize
 	const win = new BrowserWindow({

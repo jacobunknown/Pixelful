@@ -1,5 +1,6 @@
 {
   "name": "pixelful",
+  "productName": "Pixelful",
   "version": "1.0.0",
   "description": "A minimal, one layer pixel art editor",
   "main": "main.js",
@@ -38,7 +39,8 @@
           "config": {
             "name": "Pixelful",
             "setupIcon": "Assets/icons/win/icon.ico",
-            "icon": "Assets/icons/win/icon.ico"
+            "icon": "Assets/icons/win/icon.ico",
+            "loadingGif": "Assets/installing.png"
           }
         },
         {
@@ -57,5 +59,8 @@
         }
       ]
     }
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
   }
 }
