@@ -27,9 +27,6 @@
     "electron": "^20.1.1",
     "electron-icon-maker": "^0.0.5"
   },
-  "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
-  },
   "config": {
     "forge": {
       "packagerConfig": {
@@ -39,7 +36,9 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "pixelful"
+            "name": "Pixelful",
+            "setupIcon": "Assets/icons/win/icon.ico",
+            "icon": "Assets/icons/win/icon.ico"
           }
         },
         {

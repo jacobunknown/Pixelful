@@ -7,13 +7,17 @@ const createWindow = () => {
 		height,
 		autoHideMenuBar: true,
 		title: "Pixelful",
-		icon: "Assets/icons/win/icon.ico"
+		icon: "Assets/icons/win/icon.ico",
+		backgroundColor: "#222222",
+		show: false
 	})
   
 	win.maximize()
 	win.loadFile("web/index.html")
+	win.once('ready-to-show', () => {
+		win.show()
+	})
 }
-
 
 app.whenReady().then(() => {
 	createWindow()
