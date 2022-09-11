@@ -21,7 +21,7 @@ Download from the [Releases](https://github.com/jacobunknown/Pixelful/releases/l
 
 ## Use Online
 
-An online version is available at [here]().
+An online version is available [here]().
 
 ## Themes
 
