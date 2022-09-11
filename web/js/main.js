@@ -81,7 +81,7 @@ function drawImage() {
 	ctx.putImageData(image, 0, 0); // draw image on canvas
 }
 
-function downloadImage() {
+function saveImage() {
 	const link = document.createElement('a');
 	link.download = 'image.png';
 	link.href = canvas.toDataURL()
@@ -228,8 +228,8 @@ document.addEventListener("keydown", (e) => {
 				clearImage()
 				drawImage()
 				break
-			case "d":
-				downloadImage()
+			case "s":
+				saveImage()
 				break
 			case "o":
 				openImage()

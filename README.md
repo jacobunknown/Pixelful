@@ -8,7 +8,7 @@ A minimal, one layer pixel art editor
 
 - `c`: Clear image
 - `r`: Clear and randomize image
-- `d`: Download image
+- `s`: Save image
 - `o`: Open image
 - `1-8`: Switch between color swatches
 - `p`: Select Paint tool
