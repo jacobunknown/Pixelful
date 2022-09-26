@@ -4,6 +4,8 @@ A minimal, one layer pixel art editor
 
 ![Screenshot of Pixelful](Assets/screenshot.png)
 
+Pull requests are appreciated!
+
 ## Shortcuts
 
 - `c`: Clear image
