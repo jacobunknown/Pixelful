@@ -204,6 +204,34 @@ canvas.addEventListener("mousemove", (e) => {
 	}
 })
 
+canvas.addEventListener("touchstart", (e) => {
+	[...e.changedTouches].forEach(touch => {
+		switch (selectedTool) {
+			case "p":
+				paint(touch)
+				break
+			case "f":
+				fill(touch)
+				break
+			case "e":
+				erase(touch)
+				break
+			default:
+				break
+		}
+	})
+})
+
+canvas.addEventListener("touchmove", (e) => {
+	[...e.changedTouches].forEach(touch => {
+		if (selectedTool == "p") { // if paint tool is selected, paint
+			paint(touch)
+		} else if (selectedTool == "e") { // if eraser tool is selected, erase
+			erase(touch)
+		}
+	})
+})
+
 document.addEventListener("keydown", (e) => { // shortcuts
 	const key = e.key
 	if (created == false && key == "Enter") {
