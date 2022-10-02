@@ -7,7 +7,7 @@
 	--canvas_size: 85vmin;
 	--swatch_size: 35px;
 	--button_color: var(--f_low);
-	--text_color: var(--b_med);
+	--text_color: var(--f_high);
 }
 
 * {
@@ -67,7 +67,7 @@ main {
 }
 
 #top, #left {
-	background: var(--b_med);
+	background: var(--b_low);
 }
 
 #canvasContain {
