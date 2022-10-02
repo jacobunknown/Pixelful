@@ -153,11 +153,10 @@ function fill(e) { // fill
 	drawImage()
 }
 
-function erase(e) {
+function erase(e) { // erase
 	const pos = getCanvasPos(e)
 
 	setImageColor(pos, [0, 0, 0, 0])
-	image.data[pos + 3] = 255
 	
 	drawImage()
 }
@@ -193,7 +192,7 @@ canvas.addEventListener("mousedown", (e) => {
 	}
 })
 
-canvas.addEventListener("mouseup", () => {
+document.addEventListener("mouseup", () => {
 	mouseDown = false
 })
 
@@ -205,13 +204,13 @@ canvas.addEventListener("mousemove", (e) => {
 	}
 })
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", (e) => { // shortcuts
 	const key = e.key
 	if (created == false && key == "Enter") {
 		create()
 		return
 	}
-	if (isNumeric(key) && Number(key) < 9) { // 1-9 swatches
+	if (isNumeric(key) && Number(key) < 9) { // 1-8 swatches
 		setSelectedSwatch(Math.round(key) - 1)
 	} else {
 		switch (key) {
@@ -228,10 +227,10 @@ document.addEventListener("keydown", (e) => {
 				clearImage()
 				drawImage()
 				break
-			case "s":
+			case "s": // save image
 				saveImage()
 				break
-			case "o":
+			case "o": // open image
 				openImage()
 				break
 			default:
@@ -240,10 +239,10 @@ document.addEventListener("keydown", (e) => {
 	}
 })
 
-fileInput.addEventListener("change", (e) => {
+fileInput.addEventListener("change", (e) => { // opening image
 	const reader = new FileReader()
 	reader.onload = () => {
-		const i = new Image()
+		const i = new Image() // new image to set imagedata to
 		i.crossOrigin = "Anonymous";
 		i.src = reader.result
 		i.onload = () => {
@@ -259,7 +258,7 @@ function isNumeric(value) {
     return /^\d+$/.test(value);
 }
 
-function rgbParse(c) { // parse rgba to number array
+function rgbParse(c) { // parse rgba string to number array
 	return c.replace("rgba(", "").replace(")", "").split(", ").map(Number)
 }
 
@@ -267,11 +266,9 @@ function getPixelIndex(x, y) { // get pixel index in imagedata
 	return ((y * imageSize[0]) + x) * 4
 }
 
-function getCanvasPos(e) {
-	const rect = canvas.getBoundingClientRect()
-	const x = Math.floor((e.clientX - rect.left) / (rect.width / imageSize[0]))
-	const y = Math.floor((e.clientY - rect.top) / (rect.height / imageSize[1]))
-	return getPixelIndex(x, y)
+function getCanvasPos(e) { // get cursor pos as imagedata index
+	const vector = getCanvasPosVector(e)
+	return getPixelIndex(vector[0], vector[1])
 }
 
 function getCanvasPosVector(e) {
