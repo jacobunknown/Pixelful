@@ -9,16 +9,16 @@ function Theme (client) {
   this.el.type = 'text/css'
 
   this.active = {}
-  this.default = {
-    background: '#222222',
+  this.default = { // apollo default theme
+    background: '#29272b',
     f_high: '#ffffff',
-    f_med: '#affec7',
-    f_low: '#888888',
+    f_med: '#e47464',
+    f_low: '#66606b',
     f_inv: '#000000',
-    b_high: '#555555',
-    b_med: '#333333',
-    b_low: '#111111',
-    b_inv: '#affec7'
+    b_high: '#000000',
+    b_med: '#201e21',
+    b_low: '#322e33',
+    b_inv: '#e47464'
   }
 
   // Callbacks
