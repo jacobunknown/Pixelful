@@ -48,7 +48,7 @@
           "name": "@electron-forge/maker-dmg",
           "config": {
             "name": "Pixelful",
-            "icon": "Assets/icons/win/icon.ico",
+            "icon": "Assets/icons/mac/icon.icns",
             "background": "Assets/originalIcon1024.png"
           }
         }
