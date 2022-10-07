@@ -1,2 +1,6 @@
 /node_modules
 /out
+.DS_Store
+Assets/.DS_Store
+Assets/icons/.DS_Store
+.DS_Store
