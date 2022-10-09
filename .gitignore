@@ -1,2 +1,5 @@
 /node_modules
 /out
+.DS_Store
+/Assets/.DS_Store
+/Assets/ions/.DS_Store
