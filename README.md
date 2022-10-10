@@ -2,7 +2,7 @@
 
 A minimal, one layer pixel art editor
 
-![GitHub all releases](https://img.shields.io/github/downloads/jacobunknown/Pixelful/total) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/jacobunknown/Pixelful)
+![GitHub all releases](https://img.shields.io/github/downloads/jacobunknown/Pixelful/total) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/jacobunknown/Pixelful) ![GitHub](https://img.shields.io/github/license/jacobunknown/Pixelful)
 
 ![Screenshot of Pixelful](Assets/screenshot.png)
 
