@@ -11,6 +11,7 @@ const createWindow = () => {
 		height,
 		autoHideMenuBar: true,
 		title: "Pixelful",
+		icon: new nativeImage("Assets/icons/png/512x512.png"),
 		backgroundColor: "#222222",
 		show: false
 	})
