@@ -27,6 +27,11 @@ Download from the [Releases](https://github.com/jacobunknown/Pixelful/releases/l
 
 An online version is available [here](https://jacobunknown.github.io/Pixelful/web/).
 
+## License
+
+Pixelful uses the [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
+See [COPYING](COPYING).
+
 ## Themes
 
 This app uses the [Hundred Rabbits Theme System](https://github.com/hundredrabbits/Themes). To change the theme, drag and drop a theme svg onto the window.
